@@ -20,8 +20,10 @@ const dbConnect = require("./utils/db.utils");
 dbConnect();
 
 const userRouter = require("./routes/user.routes");
+const chamberRouter = require("./routes/chamber.routes");
 
 app.use("/user", userRouter);
+app.use("/auth", chamberRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello World");

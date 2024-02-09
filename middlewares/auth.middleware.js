@@ -1,4 +1,4 @@
-const jwtUtils = require('../utils/jwt.utils');
+const jwt = require('jsonwebtoken');
 
 module.exports = async function (req,res,next){
     try {
@@ -6,7 +6,7 @@ module.exports = async function (req,res,next){
         if(!accessToken){
             throw new Error('Access token not found');
         }
-        const userData = await jwtUtils.verifyAccessToken(accessToken);
+        const userData =  jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
         if(!userData){
             throw new Error('Invalid access token');
         }
