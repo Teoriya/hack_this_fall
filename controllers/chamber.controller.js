@@ -2,7 +2,6 @@ const userService = require("../services/user.service");
 const jwt = require("jsonwebtoken");
 const axios = require("axios");
 const chamberService = require("../services/chamber.service");
-const userService = require("../services/user.service");
 
 module.exports = {
   create: async (req, res) => {
