@@ -16,4 +16,30 @@ module.exports = {
       res.status(500).json({ message: error.message });
     }
   },
+  inactiveChambers: async (req, res) => {
+    try {
+      const chambers = await chamberService.getChambers({status: "inactive"});
+      res.json(chambers);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  },
+  chamberById: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const chamber = await chamberService.getChamberById(id);
+      res.json(chamber);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  },
+  deactivate: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const chamber = await chamberService.deactivate(id);
+      res.json(chamber);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  },
 };
