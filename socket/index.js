@@ -1,4 +1,4 @@
-const origin = process.env.CORS_ORIGIN?.split(',') || "http://localhost:3000";
+const origin = process.env.ORIGIN?.split(',') || "http://localhost:3000";
 
 module.exports = function (server) {
     const io = require('socket.io')(server, {
