@@ -13,7 +13,7 @@ module.exports = {
      const { sub:providerId, name, email, picture:avatar } = userInfo.data;
      const user = await userService.findUserByProviderId({ providerId, name, email, avatar });
      const accessToken = jwt.sign({ id: user._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1y' });
-     res.cookie('accessToken', accessToken, { httpOnly: true });
+     res.cookie('accessToken', accessToken, { httpOnly: true, secure: process.env.NODE_ENV === 'production', domain: process.env.NODE_ENV === 'production' ? req.get("host") : 'localhost'});
      res.json({ user, accessToken });
    } catch (error) {
       res.status(500).json({ message: error.message });
