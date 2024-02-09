@@ -14,7 +14,7 @@ module.exports = {
      const user = await userService.findUserByProviderId({ providerId, name, email, avatar });
      const accessToken = jwt.sign({ id: user._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1y' });
      console.log(`.${req.get("host")}`);
-     res.cookie('accessToken', accessToken, { httpOnly: true, secure: process.env.NODE_ENV === 'production', domain: process.env.NODE_ENV === 'production' ? `.${req.get("host")}` : 'localhost'});
+     res.cookie('accessToken', accessToken, { httpOnly: true, secure: process.env.NODE_ENV === 'production', domain: process.env.NODE_ENV === 'production' ? process.env.DOMAIN : 'localhost'});
      res.json({ user, accessToken });
    } catch (error) {
       res.status(500).json({ message: error.message });
