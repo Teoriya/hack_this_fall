@@ -23,7 +23,7 @@ const userRouter = require("./routes/user.routes");
 const chamberRouter = require("./routes/chamber.routes");
 
 app.use("/user", userRouter);
-app.use("/auth", chamberRouter);
+app.use("/chamber", chamberRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello World");
