@@ -17,8 +17,10 @@ module.exports = {
     }
   },
   inactiveChambers: async (req, res) => {
+    const { id } = req.user;
+
     try {
-      const chambers = await chamberService.getChambers({status: "inactive"});
+      const chambers = await chamberService.getChambers({admin: id});
       res.json(chambers);
     } catch (error) {
       res.status(500).json({ message: error.message });

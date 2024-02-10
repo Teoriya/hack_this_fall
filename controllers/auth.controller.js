@@ -22,10 +22,8 @@ module.exports = {
         process.env.ACCESS_TOKEN_SECRET,
         { expiresIn: "1y" }
       );
-      console.log(`.${req.get("host")}`);
       res.cookie("accessToken", accessToken, {
         httpOnly: true,
-        sameSite: "none",
         secure: process.env.NODE_ENV === "production",
         domain:
           process.env.NODE_ENV === "production"
@@ -39,8 +37,15 @@ module.exports = {
   },
   logout: async (_, res) => {
     try {
-      res.clearCookie("accessToken");
-      res.json({});
+      res.clearCookie("accessToken", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        domain:
+          process.env.NODE_ENV === "production"
+            ? process.env.DOMAIN
+            : "localhost",
+      });
+      res.status(200).json({});
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
