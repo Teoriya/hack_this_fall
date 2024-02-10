@@ -41,6 +41,7 @@ module.exports = function (server) {
         socket.on('join', function ({roomId}) {
             console.log("join",roomId)
             socket.join(roomId);
+            io.to(roomId).emit("newPeer",{})
         });
         
         socket.on('disconnect', () => {

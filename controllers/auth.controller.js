@@ -50,4 +50,14 @@ module.exports = {
       res.status(500).json({ message: error.message });
     }
   },
+
+  getUserData: async (req, res) => {
+    try {
+      const { id } = req.user;
+      const user = await userService.findUserById(id);
+      res.json(user);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  },
 };
