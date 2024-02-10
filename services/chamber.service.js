@@ -1,4 +1,5 @@
 const Chamber = require('../models/chamber.model');
+const Executions = require('../models/execution.model');
 
 module.exports = { 
     create: async (name, adminId, whitelisted_emails) => {
@@ -16,5 +17,12 @@ module.exports = {
     deactivate: async (id) => {
         const chamber = await Chamber.findByIdAndUpdate(id, {status: 'inactive'}, {new: true});
         return chamber;
+    },
+    getChamberData: async (id) => {
+        const data = await Executions.aggregate([
+            { $match: { chamber: id } },
+            { $group: { _id: "$language", count: { $sum: 1 }, executions:{$addToSet: "$$ROOT"} } }
+        ]);
+        return data;
     }
 }
