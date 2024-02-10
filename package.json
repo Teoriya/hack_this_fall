@@ -7,12 +7,12 @@
     "dev": "nodemon --env-file=.env index.js",
     "start:dec": "node --env-file=.env index.js",
     "start": "node index.js"
-
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@codemirror/state": "^6.4.0",
     "axios": "^1.6.7",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
