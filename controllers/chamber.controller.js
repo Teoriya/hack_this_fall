@@ -7,10 +7,10 @@ const { executeCode } = require("../utils/execution.utils");
 module.exports = {
   create: async (req, res) => {
     try {
-      const { name } = req.body;
+      const { name, emails } = req.body;
       const { id: admin } = req.user;
       const adminUser = await userService.findUserById(admin);
-      const whitelisted_emails = [adminUser.email];
+      const whitelisted_emails = [adminUser.email, ...emails];
       const chamber = chamberService.create(name, admin, whitelisted_emails);
       res.status(201).json(chamber);
     } catch (error) {
