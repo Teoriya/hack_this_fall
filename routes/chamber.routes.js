@@ -6,6 +6,7 @@ router.post("/create", authMiddleware, ChamberController.create);
 router.get("/", authMiddleware, ChamberController.inactiveChambers);
 router.get("/:id", authMiddleware, ChamberController.chamberById);
 router.put("/:id/deactivate", authMiddleware, ChamberController.deactivate);
-router.get("/:id/data", ChamberController.getChamberLanguageData);
+router.get("/:id/data", authMiddleware, ChamberController.getChamberLanguageData);
+router.post("/execute", ChamberController.executeCode);
 
 module.exports = router;

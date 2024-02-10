@@ -1,7 +1,7 @@
 const origin = process.env.ORIGIN?.split(',') || "http://localhost:3000";
 const {ChangeSet, Text} = require("@codemirror/state")
 
-rooms = {};
+let rooms = {};
 
 module.exports = function (server) {
     const io = require('socket.io')(server, {

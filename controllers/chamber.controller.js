@@ -2,6 +2,7 @@ const userService = require("../services/user.service");
 const jwt = require("jsonwebtoken");
 const axios = require("axios");
 const chamberService = require("../services/chamber.service");
+const { executeCode } = require("../utils/execution.utils");
 
 module.exports = {
   create: async (req, res) => {
@@ -49,6 +50,19 @@ module.exports = {
       const { id } = req.params;
       const chamber = await chamberService.getChamberData(id);
       res.json(chamber);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  },
+
+  executeCode: async (req, res) => {
+    try {
+      const { code, language, stdInput } = req.body;
+      const startTime = new Date();
+      const resp = await executeCode(code, language, stdInput);
+      console.log(resp);
+      const endTime = new Date(resp.timestamp);
+      res.json({...resp, "execution-time": endTime - startTime});
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
