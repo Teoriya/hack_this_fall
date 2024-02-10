@@ -11,7 +11,7 @@ module.exports = {
       const { id: admin } = req.user;
       const adminUser = await userService.findUserById(admin);
       const whitelisted_emails = [adminUser.email, ...emails];
-      const chamber = chamberService.create(name, admin, whitelisted_emails);
+      const chamber = await chamberService.create(name, admin, whitelisted_emails);
       res.status(201).json(chamber);
     } catch (error) {
       res.status(500).json({ message: error.message });
